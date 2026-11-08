@@ -5,11 +5,11 @@ Paper-money research system, rebuilt from prices every night by GitHub Actions a
 
 **The ladder:** 16 sleeves (HOLD, TREND, MOMENTUM, VOLTARGET for each of crypto, stocks,
 metals and energy) feed 4 category accounts, which feed 1 Master that holds the two
-categories rising fastest while they beat T-bills. Every number is shown beside the
+categories rising fastest while they beat T-bills. Decisions are weekly. Every number is shown beside the
 do-nothing number it has to beat.
 
-* Rules: `REGISTRATION_4.md` (fingerprint `d6ebfac647c082b8`, frozen 8 Nov 2026)
-* Headline test, watch-only: `REGISTRATION_HEADLINES.md` (fingerprint `ef1453ae2a6bc6ed`)
+* Rules: `REGISTRATION_4.md` (fingerprint `566c8a43a3fb4b71`, frozen 8 Nov 2026)
+* Headline test, watch-only: `REGISTRATION_HEADLINES.md` (fingerprint `e8b180560092fcf0`)
 * Tests: `python scripts/test_ladder.py`
 * One workflow: `.github/workflows/ladder.yml`, daily at 02:17 UTC and on any code change
 

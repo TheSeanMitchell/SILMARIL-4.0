@@ -21,7 +21,11 @@ from .data import Tape
 
 
 def simulate(tape: Tape, track: List[Optional[Dict[str, float]]], start: int,
-             label: str = "", seed: Optional[float] = None) -> Dict:
+             label: str = "", seed: Optional[float] = None,
+             events: Optional[Dict[int, str]] = None) -> Dict:
+    """...and every fill carries the reason that caused it (events[j]) and the id of the
+    ROUND TRIP it belongs to: a round trip opens when a symbol goes from not held to
+    held and closes when it is fully sold. Adds and trims in between stay inside it."""
     seed = REGISTERED["start_cash"] if seed is None else seed
     cash_sym = REGISTERED["cash_symbol"]
     min_frac = REGISTERED["min_trade_frac"]
@@ -32,6 +36,33 @@ def simulate(tape: Tape, track: List[Optional[Dict[str, float]]], start: int,
     fees = 0.0
     invested_sum, invested_n = 0.0, 0
     last_tgt: Optional[Dict[str, float]] = None
+    open_ep: Dict[str, Dict] = {}
+    episodes: List[Dict] = []
+
+    def record(j: int, side: str, s: str, usd: float, fee: float, closes: bool) -> None:
+        why = (events or {}).get(j, "")
+        px = round(tape.px[s][j], 6)
+        ep = open_ep.get(s)
+        if ep is None:
+            ep = {"id": "%s|%s|%s" % (label, s, tape.dates[j]), "book": label, "sym": s,
+                  "open_j": j, "open_date": tape.dates[j], "entry_px": px, "entry_why": why,
+                  "bought": 0.0, "sold": 0.0, "fees": 0.0, "fills": 0}
+            open_ep[s] = ep
+        if side == "BUY":
+            ep["bought"] += usd + fee
+        else:
+            ep["sold"] += usd - fee
+        ep["fees"] += fee
+        ep["fills"] += 1
+        trades.append({"date": tape.dates[j], "side": side, "sym": s, "usd": round(usd, 2),
+                       "fee": round(fee, 2), "px": px, "book": label, "why": why,
+                       "ep": ep["id"]})
+        if closes:
+            ep.update(close_j=j, close_date=tape.dates[j], exit_px=px, exit_why=why,
+                      status="closed")
+            episodes.append(ep)
+            del open_ep[s]
+
     for j in range(start, tape.n):
         if j > start:
             for s in list(hold):
@@ -56,9 +87,7 @@ def simulate(tape: Tape, track: List[Optional[Dict[str, float]]], start: int,
                     hold.pop(s, None)
                 cash += -diff - fee
                 fees += fee
-                trades.append({"date": tape.dates[j], "side": "SELL", "sym": s,
-                               "usd": round(-diff, 2), "fee": round(fee, 2),
-                               "px": round(tape.px[s][j], 6), "book": label})
+                record(j, "SELL", s, -diff, fee, full_exit)
             # then buys, scaled to the cash actually available
             buys = {}
             for s in sorted(tgt):
@@ -74,16 +103,24 @@ def simulate(tape: Tape, track: List[Optional[Dict[str, float]]], start: int,
                 hold[s] = hold.get(s, 0.0) + v
                 cash -= v + fee
                 fees += fee
-                trades.append({"date": tape.dates[j], "side": "BUY", "sym": s,
-                               "usd": round(v, 2), "fee": round(fee, 2),
-                               "px": round(tape.px[s][j], 6), "book": label})
+                record(j, "BUY", s, v, fee, False)
             cash = max(cash, 0.0)
             last_tgt = tgt
         eq = cash + sum(hold.values())
         curve[j] = eq
         invested_sum += (eq - cash) / eq if eq > 0 else 0.0
         invested_n += 1
+    for s, ep in open_ep.items():
+        ep.update(status="open", value_now=round(hold.get(s, 0.0), 2))
+        episodes.append(ep)
+    for ep in episodes:
+        end_val = ep["sold"] + ep.get("value_now", 0.0)
+        ep["pnl"] = round(end_val - ep["bought"], 2)
+        ep["pct"] = round(100 * (end_val / ep["bought"] - 1.0), 2) if ep["bought"] else 0.0
+        for k in ("bought", "sold", "fees"):
+            ep[k] = round(ep[k], 2)
     return {"curve": curve, "trades": trades, "fees": fees, "start": start,
+            "episodes": episodes,
             "holdings": {s: round(v, 2) for s, v in hold.items()}, "cash": round(cash, 2),
             "avg_invested": invested_sum / invested_n if invested_n else 0.0}
 

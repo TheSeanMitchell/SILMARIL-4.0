@@ -219,6 +219,23 @@ def main():
         after = json.dumps(EN.build(tape), sort_keys=True, default=str)
         check("17 trading results are identical with the headline test running", before == after)
 
+    # 18 round trips add up: with T-bills flat, the account's gain is exactly the sum of
+    #    its round trips' profit and loss (closed plus open)
+    flat_bil = DA.Tape(tape.dates, dict(tape.px, BIL=[100.0] * tape.n))
+    at, aev = RU.account_track({n: RU.SLEEVES[n](flat_bil, "crypto", start)[0] for n in RU.SLEEVES},
+                               start, flat_bil.n)
+    r = PF.simulate(flat_bil, at, start, label="t", events=aev)
+    tot = sum(e["pnl"] for e in r["episodes"])
+    check("18 round trips add up to the account gain", abs((r["curve"][-1] - 10000) - tot) < 0.05,
+          "%.2f vs %.2f" % (r["curve"][-1] - 10000, tot))
+    check("19 every fill names a round trip and a reason field",
+          all(t.get("ep") and "why" in t for t in r["trades"]))
+    year = [j for j in range(1, tape.n) if tape.dates[j][:4] == tape.dates[-300][:4]]
+    per_year = sum(1 for j in year if RU.is_new_period(tape.dates, j))
+    want = (50, 54) if CF.REGISTERED.get("rebalance") == "weekly" else (11, 13)
+    check("20 scheduled decision days follow the registered cadence (%s: %d a year)"
+          % (RU.CADENCE, per_year), want[0] <= per_year <= want[1])
+
     print()
     if FAILS:
         print("%d FAILED: %s" % (len(FAILS), ", ".join(FAILS)))

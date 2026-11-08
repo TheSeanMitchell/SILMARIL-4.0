@@ -26,6 +26,7 @@ DOCS = ROOT / "docs"
 RECORD = "ladder_record.json"
 LEDGER = "ladder_ledger.jsonl"
 RESULTS = "ladder_results.json"
+COCKPIT = "ladder_cockpit.json"
 MAX_FILE_MB = 25          # GitHub refuses files over 100 MB; we stop far below that
 
 
@@ -118,7 +119,11 @@ def cmd_run(offline: bool = False) -> int:
     except Exception as e:                      # noqa: BLE001
         res["headlines"] = {"error": "%s: %s" % (type(e).__name__, str(e)[:200])}
     res["generated_at"] = _now()
+    cockpit = res.pop("cockpit")
+    cockpit["meta"] = {"generated_at": res["generated_at"], "data": res.get("data"),
+                       "record": res.get("record"), "registration_hash": res["registration_hash"]}
     _write(DATA / RESULTS, res)
+    (DATA / COCKPIT).write_text(json.dumps(cockpit, separators=(",", ":")), encoding="utf-8")
     with open(DATA / LEDGER, "a", encoding="utf-8") as f:
         f.write(json.dumps({
             "t": res["generated_at"], "hash": res["registration_hash"],
@@ -129,7 +134,7 @@ def cmd_run(offline: bool = False) -> int:
                          for c, v in res["categories"].items()},
             "equal_weight_hold": res["benchmarks"]["equal_weight_hold"].get("forward_value"),
         }) + "\n")
-    RP.build(res, DOCS)
+    RP.build(res, DOCS, cockpit)
     m = res["master"]
     print("data through %s (%s, %d days old) · hash %s" % (
         res["data_through"], meta.get("source"), stale, res["registration_hash"]))

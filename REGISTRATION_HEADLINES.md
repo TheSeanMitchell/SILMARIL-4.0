@@ -6,7 +6,7 @@ Frozen on 8 November 2026, before the first headline was scored. `ladder/headlin
 holds the same rules (`HEADLINE_RULES`); `scripts/test_ladder.py` fails if the two disagree.
 
 **Watch-only.** This test never places, changes or blocks a trade. The trading rules and
-their fingerprint (`e6a469bdd537a239`, REGISTRATION_4.md) are untouched by it.
+their fingerprint (`566c8a43a3fb4b71`, REGISTRATION_4.md) are untouched by it.
 
 Re-registration note: first registered the same day under the name "SILMARIL 9" (hash `ef1453ae2a6bc6ed`); only the name changed, before any headline was graded.
 

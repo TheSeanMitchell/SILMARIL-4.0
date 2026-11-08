@@ -49,12 +49,12 @@ REGISTERED = {
     # ── the sleeves ──────────────────────────────────────────────────────────────
     "sleeves": {
         "HOLD": "50/50 of the category's two assets, bought on day one, never traded again",
-        "TREND": "monthly: each asset holds its half while its close is above its 200-day "
+        "TREND": "weekly: each asset holds its half while its close is above its 200-day "
                  "average, otherwise that half sits in T-bills (Faber 2007)",
-        "MOMENTUM": "monthly: hold the ONE asset with the best blended 1/3/6-month return if "
+        "MOMENTUM": "weekly: hold the ONE asset with the best blended 1/3/6-month return if "
                     "it beats T-bills over the same windows, else T-bills; checked daily for a "
                     "fast exit (Moskowitz-Ooi-Pedersen 2012; Antonacci 2014)",
-        "VOLTARGET": "monthly: 50/50 basket scaled so its recent volatility is about 15% a "
+        "VOLTARGET": "weekly: 50/50 basket scaled so its recent volatility is about 15% a "
                      "year, the rest in T-bills; re-sized only when the size moves by more "
                      "than 10 points (Moreira-Muir 2017)",
     },
@@ -65,13 +65,17 @@ REGISTERED = {
     "vol_target": 0.15,
     "vol_band": 0.10,
     "warmup_bars": 253,
+    # the scheduled decision day: the first trading day of each ISO week. Chosen over
+    # monthly on 8 Nov 2026 by a rule written before the comparison was run (see
+    # REGISTRATION_4.md) - an in-sample choice, disclosed as such.
+    "rebalance": "weekly",
 
     # ── the category account ─────────────────────────────────────────────────────
     "account_rule": "equal average of the TREND, MOMENTUM and VOLTARGET sleeve targets; "
                     "re-balanced whenever any sleeve changes its target",
 
     # ── the master ───────────────────────────────────────────────────────────────
-    "master_rule": "monthly: score each category account's own equity curve by its blended "
+    "master_rule": "weekly: score each category account's own equity curve by its blended "
                    "1/3/6-month return; hold the top 2 that beat T-bills, half each, "
                    "mirroring that account's holdings; a held account that falls below "
                    "T-bills is dropped the next day; empty seats sit in T-bills",

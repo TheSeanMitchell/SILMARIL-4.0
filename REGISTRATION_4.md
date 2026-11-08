@@ -1,16 +1,26 @@
 # SILMARIL 4.0 — THE LADDER — THE REGISTRATION
 
-registration-hash: e6a469bdd537a239
+registration-hash: 566c8a43a3fb4b71
 
-Frozen on 8 November 2026, before the history replay was run for the first time and before
-the first forward close. `ladder/config.py` holds the same rules as numbers;
-`scripts/test_ladder.py` fails if the two ever disagree. Changing a number is a
-re-registration: a new hash, written here, on purpose.
+Frozen on 8 November 2026, before the first forward close. `ladder/config.py` holds the same
+rules as numbers; `scripts/test_ladder.py` fails if the two ever disagree. Changing a number
+is a re-registration: a new hash, written here, on purpose.
 
-**Re-registration note (8 Nov 2026, evening):** these rules were first registered the same
-day as "SILMARIL 9" (hash `d6ebfac647c082b8`). The only change is the name and version
-(SILMARIL 4.0, 4.0.0), made before the epoch; every trading number is identical, so the
-history replay below is unchanged.
+## Registration history (all on 8 Nov 2026, all before the epoch)
+
+1. `d6ebfac647c082b8` — first registration under the working name "SILMARIL 9", monthly
+   decisions. The history replay was run once with these rules, untuned.
+2. `e6a469bdd537a239` — renamed SILMARIL 4.0. Name and version only; every trading number
+   identical.
+3. **`566c8a43a3fb4b71` — weekly decisions (this one).** The operator asked whether deciding
+   weekly would be more powerful. Before testing, a pass rule was written down
+   (`CADENCE_TEST_RULE.md` in the audit folder): weekly would be adopted only if, for the
+   Master over the same replay and after costs, its Sharpe ratio was higher, its worst
+   drawdown no deeper, and it beat monthly in at least 5 of 8 calendar years. It passed all
+   three (Sharpe 0.74 vs 0.63, worst drop −34.8% vs −40.9%, 6 of 8 years), and still won at
+   double the registered costs. **This is an in-sample choice between two cadences and is
+   disclosed as such.** Nothing else changed: lookbacks, costs, hysteresis and exits are the
+   same.
 
 ## The ladder
 
@@ -18,16 +28,16 @@ history replay below is unchanged.
 |---|---|---|
 | **Sleeves** (16) | four per category: HOLD, TREND, MOMENTUM, VOLTARGET | HOLD *is* the twin |
 | **Category accounts** (4) | crypto (BTC, ETH) · stocks (SPY, QQQ) · metals (GLD, SLV) · energy (XLE, USO). Each holds the average of its TREND, MOMENTUM and VOLTARGET sleeves | the category's HOLD sleeve |
-| **Master** (1) | holds the two category accounts whose own track records are rising fastest, half each, only while they beat T-bills | equal-weight hold of all 8 assets; SPY hold |
+| **Master** (1) | every week, holds the two category accounts whose own track records are rising fastest, half each, only while they beat T-bills | equal-weight hold of all 8 assets; SPY hold |
 
 Idle money in every account sits in T-bills (BIL), so cash earns what cash really earns.
 
-## The sleeves
+## The sleeves (decisions on the first trading day of each week, from the previous close)
 
 * **HOLD** — 50/50 of the two assets on day one; never trades again.
-* **TREND** — monthly. Each asset holds its half while its close is above its 200-day average; otherwise that half sits in T-bills. (Faber, 2007.)
-* **MOMENTUM** — monthly. Holds the one asset with the best blended 1/3/6-month return, only if it beats T-bills over the same windows; a 1-point margin keeps the incumbent. Checked daily for a fast exit. (Moskowitz, Ooi and Pedersen, 2012; Antonacci, 2014.)
-* **VOLTARGET** — monthly. The 50/50 basket, sized so its last-63-day volatility is about 15% a year, the rest in T-bills; resized only when the size moves by more than 10 points. (Moreira and Muir, 2017.)
+* **TREND** — weekly. Each asset holds its half while its close is above its 200-day average; otherwise that half sits in T-bills. (Faber, 2007.)
+* **MOMENTUM** — weekly. Holds the one asset with the best blended 1/3/6-month return, only if it beats T-bills over the same windows; a 1-point margin keeps the incumbent. Checked daily for a fast exit. (Moskowitz, Ooi and Pedersen, 2012; Antonacci, 2014.)
+* **VOLTARGET** — weekly. The 50/50 basket, sized so its last-63-day volatility is about 15% a year, the rest in T-bills; resized only when the size moves by more than 10 points. (Moreira and Muir, 2017.)
 
 ## Execution
 
@@ -46,7 +56,7 @@ Idle money in every account sits in T-bills (BIL), so cash earns what cash reall
 
 * Horizon: 104 weeks from the epoch. Progress shown every 13 weeks; no verdict is read before week 104.
 * **Pass:** the master beats the equal-weight hold of all 8 assets after costs, with a smaller worst drawdown.
-* Expectation from the replay (May 2019 to November 2026, run once, untuned): the master grew about 16% a year with a worst drop of about −41%. Equal-weight holding grew about 22% a year with a worst drop of about −61%. SPY grew about 15% a year with a worst drop of about −34%. **The rules bought smaller drops, not more money.** The forward test asks whether that holds.
+* Expectation from the replay (May 2019 to November 2026, weekly): the master grew about 19.5% a year with a worst drop of about −35% (537 trades, $1,879 fees on a $10,000 start). Equal-weight holding grew about 22% a year with a worst drop of about −61%. SPY grew about 15% a year with a worst drop of about −34%. **In the replay the rules bought a much smaller fall than holding everything, for somewhat less money.** The forward test asks whether that holds.
 * P($1,000 a month on $10,000): about zero. No rule here pursues it.
 
 ## Where the earlier versions live

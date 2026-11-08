@@ -6,8 +6,9 @@ the fill day's own close is never an input. That is the no-lookahead law, and
 scripts/test_ladder.py proves it by vandalising the fill-day price and checking that no
 target moves.
 
-Monthly rules decide on the first trading day of a new month (using the previous day's
-close, i.e. the month-end). Daily exits may fire on any day.
+Scheduled rules decide on the first trading day of each new period - each WEEK as
+registered (REGISTERED["rebalance"]) - using the previous day's close. Daily exits may
+fire on any day.
 """
 from __future__ import annotations
 
@@ -60,6 +61,19 @@ def is_new_month(dates: List[str], j: int) -> bool:
     return j > 0 and dates[j][:7] != dates[j - 1][:7]
 
 
+def is_new_week(dates: List[str], j: int) -> bool:
+    from datetime import date
+    return j > 0 and (date.fromisoformat(dates[j]).isocalendar()[:2]
+                      != date.fromisoformat(dates[j - 1]).isocalendar()[:2])
+
+
+CADENCE = REGISTERED.get("rebalance", "monthly")
+
+
+def is_new_period(dates: List[str], j: int) -> bool:
+    return is_new_week(dates, j) if CADENCE == "weekly" else is_new_month(dates, j)
+
+
 def _clean(w: Weights) -> Weights:
     return {k: round(v, 10) for k, v in w.items() if v > 1e-12}
 
@@ -81,7 +95,7 @@ def sleeve_trend(tape: Tape, cat: str, start: int) -> Tuple[Track, Events]:
     ev: Events = {}
     cur: Weights = {}
     for j in range(start, tape.n):
-        if j == start or is_new_month(tape.dates, j):
+        if j == start or is_new_period(tape.dates, j):
             i = j - 1
             new: Weights = {}
             why = []
@@ -110,7 +124,7 @@ def sleeve_momentum(tape: Tape, cat: str, start: int) -> Tuple[Track, Events]:
         i = j - 1
         hurdle = blended(tape.px[cash], i)
         scores = {s: blended(tape.px[s], i) for s in syms}
-        if j == start or is_new_month(tape.dates, j):
+        if j == start or is_new_period(tape.dates, j):
             elig = {s: v for s, v in scores.items()
                     if v is not None and hurdle is not None and v > hurdle}
             pick = None
@@ -121,9 +135,9 @@ def sleeve_momentum(tape: Tape, cat: str, start: int) -> Tuple[Track, Events]:
                 else:
                     pick = best
             if pick != held or j == start:
-                ev[j] = ("monthly: %s (score %+.1f%% vs T-bills %+.1f%%)" %
+                ev[j] = (CADENCE + ": %s (score %+.1f%% vs T-bills %+.1f%%)" %
                          (pick, 100 * scores[pick], 100 * (hurdle or 0)) if pick else
-                         "monthly: nothing beats T-bills -> cash")
+                         CADENCE + ": nothing beats T-bills -> cash")
             held = pick
         elif held is not None:
             sc = scores.get(held)
@@ -144,11 +158,11 @@ def sleeve_voltarget(tape: Tape, cat: str, start: int) -> Tuple[Track, Events]:
     ev: Events = {}
     expo: Optional[float] = None
     for j in range(start, tape.n):
-        if j == start or is_new_month(tape.dates, j):
+        if j == start or is_new_period(tape.dates, j):
             v = basket_vol(tape.px[a], tape.px[b], j - 1, win)
             new = 0.0 if not v else min(1.0, tgt_vol / v)
             if expo is None or abs(new - expo) > band:
-                ev[j] = "monthly: basket volatility %.0f%% -> hold %.0f%% of the account" % (
+                ev[j] = CADENCE + ": basket volatility %.0f%% -> hold %.0f%% of the account" % (
                     100 * (v or 0), 100 * new)
                 expo = new
         tr[j] = _clean({a: 0.5 * expo, b: 0.5 * expo})
@@ -183,7 +197,7 @@ def account_track(sleeve_tracks: Dict[str, Track], start: int, n: int) -> Tuple[
 # ── the master: rotate into the category accounts that are working ──────────────
 
 def master_track(tape: Tape, curves: Dict[str, List[Optional[float]]],
-                 acct_tracks: Dict[str, Track], start: int) -> Tuple[Track, Events, List]:
+                 acct_tracks: Dict[str, Track], start: int) -> Tuple[Track, Events, List, List]:
     """curves[cat][i] = that category account's rule-curve equity at close i (from its
     own replay). Scores read curves up to i = j-1 only."""
     cash = REGISTERED["cash_symbol"]
@@ -193,11 +207,12 @@ def master_track(tape: Tape, curves: Dict[str, List[Optional[float]]],
     ev: Events = {}
     held: List[str] = []
     score_log = []
+    seats: List[Optional[List[str]]] = [None] * tape.n
     for j in range(start, tape.n):
         i = j - 1
         hurdle = blended(tape.px[cash], i)
         scores = {c: blended(curves[c], i) for c in curves}
-        if j == start or is_new_month(tape.dates, j):
+        if j == start or is_new_period(tape.dates, j):
             elig = {c: v for c, v in scores.items()
                     if v is not None and hurdle is not None and v > hurdle}
             ranked = sorted(elig, key=lambda c: -elig[c])
@@ -210,7 +225,7 @@ def master_track(tape: Tape, curves: Dict[str, List[Optional[float]]],
                     keep.append(c)
             keep = keep[:slots]
             if keep != held or j == start:
-                ev[j] = "monthly seats: %s (T-bills %+.1f%%; scores %s)" % (
+                ev[j] = CADENCE + " seats: %s (T-bills %+.1f%%; scores %s)" % (
                     " + ".join(keep) or "none -> cash", 100 * (hurdle or 0),
                     ", ".join("%s %+.1f%%" % (c, 100 * v) for c, v in
                               sorted(scores.items(), key=lambda kv: -(kv[1] or -9))
@@ -231,4 +246,5 @@ def master_track(tape: Tape, curves: Dict[str, List[Optional[float]]],
             for s, v in (acct_tracks[c][j] or {}).items():
                 w[s] = w.get(s, 0.0) + v / slots
         tr[j] = _clean(w)
-    return tr, ev, score_log
+        seats[j] = list(held)
+    return tr, ev, score_log, seats

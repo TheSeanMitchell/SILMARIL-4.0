@@ -61,7 +61,7 @@ jobs:
         run: |
           git config user.name "silmaril-ladder"
           git config user.email "actions@users.noreply.github.com"
-          git add docs/index.html docs/data/ladder_results.json \
+          git add docs/index.html docs/cockpit.js docs/data/ladder_results.json docs/data/ladder_cockpit.json \
                   docs/data/ladder_record.json docs/data/ladder_ledger.jsonl
           if [ -f docs/data/ladder_headlines.json ]; then git add docs/data/ladder_headlines.json; fi
           # The price file is only a fallback cache (every run downloads fresh prices), so it

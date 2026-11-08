@@ -5,14 +5,15 @@ itself every night at 02:17 UTC and whenever its code changes. No outside cron s
 tokens, no secrets.
 
 Each run:
-1. runs the 20 tests (nothing runs if one fails);
+1. runs the test battery (nothing runs if one test fails);
 2. downloads fresh prices and rebuilds the whole ladder from them;
 3. reads the day's headlines for the watch-only headline test;
 4. checks every recorded day against the recomputation (DRIFT shows in red);
 5. saves the page and data. If the save fails, the run turns **red** and GitHub emails you.
 
 **What to look at:** <https://theseanmitchell.github.io/SILMARIL-4.0/> — every 13 weeks is
-plenty. A monthly system makes about a dozen decisions a year.
+enough. The rules decide once a week (the first trading day), and the Master can drop a
+falling category on any day.
 
 **What never to do:** no resets, and no edits to `ladder/config.py` or `HEADLINE_RULES`
 without writing a new registration. Changing a rule after seeing results is how the old

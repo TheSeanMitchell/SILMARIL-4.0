@@ -28,13 +28,31 @@ SLEEVE_DESC = {
 }
 
 CSS = """
+/* chart series use the validated categorical order: blue, orange, aqua, yellow */
 :root{--bg:#f6f4ef;--card:#fffdf8;--ink:#1d2127;--dim:#68707b;--line:#e2ddd2;--pos:#1f7a52;--neg:#b5452f;
---gold:#9a6b12;--c1:#2f6db5;--c2:#c07a1b;--c3:#7a7f88;--warnbg:#fbefd6;--badbg:#f7dfd8;--okbg:#dcefe4}
+--gold:#9a6b12;--c1:#2a78d6;--c2:#eb6834;--c3:#1baf7a;--c4:#eda100;--grid:#e8e4da;--warnbg:#fbefd6;--badbg:#f7dfd8;--okbg:#dcefe4}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#101317;--card:#171b21;--ink:#e6e9ee;
---dim:#8f98a4;--line:#29303a;--pos:#6fc39a;--neg:#e58a76;--gold:#d8ad55;--c1:#6ea4e8;--c2:#e2a24f;--c3:#8f98a4;
---warnbg:#2c2414;--badbg:#311c17;--okbg:#14291f}}
+--dim:#8f98a4;--line:#29303a;--pos:#6fc39a;--neg:#e58a76;--gold:#d8ad55;--c1:#3987e5;--c2:#d95926;--c3:#199e70;--c4:#c98500;
+--grid:#232932;--warnbg:#2c2414;--badbg:#311c17;--okbg:#14291f;color-scheme:dark}}
 :root[data-theme="dark"]{--bg:#101317;--card:#171b21;--ink:#e6e9ee;--dim:#8f98a4;--line:#29303a;--pos:#6fc39a;
---neg:#e58a76;--gold:#d8ad55;--c1:#6ea4e8;--c2:#e2a24f;--c3:#8f98a4;--warnbg:#2c2414;--badbg:#311c17;--okbg:#14291f}
+--neg:#e58a76;--gold:#d8ad55;--c1:#3987e5;--c2:#d95926;--c3:#199e70;--c4:#c98500;--grid:#232932;--warnbg:#2c2414;
+--badbg:#311c17;--okbg:#14291f;color-scheme:dark}
+nav.tabs{display:flex;flex-wrap:wrap;gap:2px;margin:16px 0 0;border-bottom:1px solid var(--line);position:sticky;top:0;background:var(--bg);z-index:5}
+nav.tabs a{padding:9px 12px;text-decoration:none;color:var(--dim);border-bottom:2px solid transparent;font-weight:600;font-size:14px}
+nav.tabs a[aria-current="page"]{color:var(--ink);border-bottom-color:var(--gold)}
+nav.tabs a:focus-visible,.ctl :focus-visible,tr.click:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.ctl{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:10px 0}
+.ctl label{font-size:12px;color:var(--dim)}
+.ctl select,.ctl input,.ctl button{font:inherit;font-size:13px;padding:6px 9px;border:1px solid var(--line);border-radius:6px;background:var(--card);color:var(--ink)}
+.ctl button{cursor:pointer}.ctl button[aria-pressed="true"]{border-color:var(--gold);color:var(--gold);font-weight:600}
+tr.click{cursor:pointer}tr.click:hover td{background:color-mix(in srgb,var(--gold) 9%,transparent)}
+.modal-bg{position:fixed;inset:0;background:rgba(0,0,0,.5);display:flex;align-items:flex-start;justify-content:center;padding:32px 16px;overflow:auto;z-index:30}
+.modal{background:var(--card);border:1px solid var(--line);border-radius:10px;max-width:900px;width:100%;padding:18px 20px;min-width:0}
+.modal h3{font-size:18px;margin-bottom:4px}.modal .x{float:right;font:inherit;background:none;border:1px solid var(--line);border-radius:6px;color:var(--ink);padding:4px 10px;cursor:pointer}
+.chart{position:relative}.chart svg{display:block;width:100%;height:auto;overflow:visible}
+.tip{position:absolute;pointer-events:none;background:var(--card);border:1px solid var(--line);border-radius:6px;padding:6px 9px;font-size:12px;line-height:1.5;white-space:nowrap;box-shadow:0 2px 10px rgba(0,0,0,.15);z-index:3}
+.good{color:var(--pos)}.badc{color:var(--neg)}
+.small{font-size:12px}.mini{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:12px}
 *{box-sizing:border-box;margin:0;padding:0}
 body{background:var(--bg);color:var(--ink);font:15px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;padding:24px 16px 72px}
 .wrap{max-width:1080px;margin:0 auto}
@@ -147,12 +165,98 @@ def _status(res: Dict) -> str:
 
 
 def _next_monthly(res: Dict) -> str:
+    """The next scheduled decision day (weekly: the next Monday's close, or the first
+    trading day of that week if Monday is a holiday)."""
+    if REGISTERED.get("rebalance") == "weekly":
+        from datetime import timedelta
+        d = date.fromisoformat(res["data_through"])
+        nxt = d + timedelta(days=7 - d.weekday())
+        return "the first trading day of the week of %s" % nxt.strftime("%A %d %B %Y").replace(" 0", " ")
     y, m = int(res["data_through"][:4]), int(res["data_through"][5:7])
     y, m = (y + 1, 1) if m == 12 else (y, m + 1)
     return "first trading day of %s" % date(y, m, 1).strftime("%B %Y")
 
 
-def build(res: Dict, docs: Path) -> Path:
+TABS = [("command", "Command"), ("trades", "Trades"), ("forensics", "Forensics"),
+        ("signals", "Signals"), ("headlines", "Headlines"), ("health", "Health"), ("rules", "Rules")]
+
+
+def _health(res: Dict, docs: Path) -> str:
+    """Server-rendered health tab: freshness, the run log, drift, fingerprints, file sizes."""
+    d, rec = res.get("data", {}), res.get("record", {})
+    data = Path(docs) / "data"
+    files = sorted(p for p in data.glob("ladder_*") if p.is_file())
+    try:
+        runs = [json.loads(l) for l in (data / "ladder_ledger.jsonl").read_text(encoding="utf-8").splitlines() if l.strip()]
+    except Exception:
+        runs = []
+    from .headlines import rules_hash as _hh
+    out = ['<div class="grid">',
+           '<div class="card"><h3>Prices</h3><div class="kv"><span>newest close</span><b>%s</b></div>'
+           '<div class="kv"><span>age</span><b>%s days%s</b></div><div class="kv"><span>source</span><b>%s</b></div>'
+           '<div class="kv"><span>filled from the saved file</span><b>%s</b></div></div>' % (
+               esc(d.get("newest_close")), esc(d.get("stale_days")), " (STALE)" if d.get("stale") else "",
+               esc(d.get("source")), esc(", ".join(d.get("from_saved_file") or []) or "none")),
+           '<div class="card"><h3>The record</h3><div class="kv"><span>live days recorded</span><b>%s</b></div>'
+           '<div class="kv"><span>drift (recorded vs recomputed)</span><b class="%s">%s</b></div>'
+           '<div class="kv"><span>live since</span><b>%s</b></div><div class="kv"><span>decisions</span><b>%s</b></div></div>' % (
+               rec.get("days_recorded", 0), "badc" if rec.get("drift_count") else "good",
+               rec.get("drift_count", 0), esc(REGISTERED["epoch_date"]),
+               "weekly, first trading day" if REGISTERED.get("rebalance") == "weekly" else "monthly"),
+           '<div class="card"><h3>Fingerprints</h3><div class="kv"><span>trading rules</span><b class="num">%s</b></div>'
+           '<div class="kv"><span>headline test</span><b class="num">%s</b></div>'
+           '<div class="kv"><span>page built</span><b>%s</b></div></div>' % (
+               esc(res["registration_hash"]), esc(_hh()), esc(str(res.get("generated_at", ""))[:19].replace("T", " ") + " UTC")),
+           '</div>']
+    if rec.get("drift"):
+        out.append('<div class="tw" style="margin-top:12px"><table><tr><th>date</th><th>book</th><th>recorded</th>'
+                   '<th>recomputed</th></tr>%s</table></div>' % "".join(
+                       "<tr><td>%s</td><td>%s</td><td>%s</td><td>%s</td></tr>" % (
+                           esc(x["date"]), esc(x["book"]), money(x["recorded"]), money(x["recomputed"]))
+                       for x in rec["drift"]))
+    out.append('<h3 style="margin:18px 0 6px">Files this system writes (limit 25 MB each; GitHub refuses 100 MB)</h3>'
+               '<div class="tw"><table><tr><th>file</th><th>size</th></tr>%s</table></div>' % "".join(
+                   "<tr><td>%s</td><td>%.2f MB</td></tr>" % (esc(p.name), p.stat().st_size / 1e6) for p in files))
+    out.append('<h3 style="margin:18px 0 6px">Every run (newest first)</h3><div class="tw"><table><tr><th>run (UTC)</th>'
+               '<th>data through</th><th>source</th><th>age</th><th>drift</th><th>Master</th><th>hold all 8</th>'
+               '<th>rules</th></tr>%s</table></div>' % "".join(
+                   "<tr><td>%s</td><td>%s</td><td>%s</td><td>%s d</td><td>%s</td><td>%s</td><td>%s</td><td class=\"num\">%s</td></tr>" % (
+                       esc(str(r.get("t", ""))[:16].replace("T", " ")), esc(r.get("data_through")), esc(r.get("source")),
+                       esc(r.get("stale_days")), esc(r.get("drift_count")), money(r.get("master")),
+                       money(r.get("equal_weight_hold")), esc(r.get("hash")))
+                   for r in reversed(runs[-40:])))
+    return "".join(out)
+
+
+def _rules(res: Dict) -> str:
+    R = REGISTERED
+    rt = R["round_trip_cost"]
+    cats = "".join("<tr><td>%s</td><td>%s</td></tr>" % (LABEL[c], esc(" · ".join(s))) for c, s in R["categories"].items())
+    sl = "".join("<tr><td><b>%s</b></td><td class=\"wrap\">%s</td></tr>" % (esc(k), esc(v)) for k, v in R["sleeves"].items())
+    return ('<div class="card"><p><b>Decisions:</b> %s, on the first trading day of each %s, from the previous '
+            'close; fills at that day\'s close. The MOMENTUM sleeves and the Master can also step out on any day.</p>'
+            '<p><b>Costs:</b> crypto %.1f%% per round trip, ETFs %.1f%%, T-bills free; both sides of every trade pay. '
+            '<b>Prices:</b> adjusted closes (dividends and splits included). <b>Idle money:</b> T-bills (BIL).</p>'
+            '<p><b>Signals:</b> %d-day average; momentum = mean of %s-day returns; volatility over %d days, target %.0f%%; '
+            'hysteresis %.0f point.</p>'
+            '<p><b>Pass at week %d:</b> %s.</p>'
+            '<p class="dim">Full text: <a href="https://github.com/TheSeanMitchell/SILMARIL-4.0/blob/main/REGISTRATION_4.md">'
+            'REGISTRATION_4.md</a> · fingerprint <span class="num">%s</span></p></div>'
+            '<div class="tw" style="margin-top:12px"><table><tr><th>category</th><th>assets</th></tr>%s</table></div>'
+            '<div class="tw" style="margin-top:12px"><table><tr><th>sleeve</th><th>rule</th></tr>%s'
+            '<tr><td><b>ACCOUNT</b></td><td class="wrap">%s</td></tr><tr><td><b>MASTER</b></td><td class="wrap">%s</td></tr>'
+            '</table></div>'
+            '<div class="card" style="margin-top:12px"><p><b>What to expect:</b> in the history replay these rules grew '
+            'a little slower than holding all eight assets and fell much less in the worst stretch. A few months of '
+            'live data cannot tell luck from skill; the page will not pretend otherwise.</p><p class="dim">%s</p></div>') % (
+        esc(R.get("rebalance", "monthly").capitalize()), "week" if R.get("rebalance") == "weekly" else "month",
+        100 * rt["crypto"], 100 * rt["etf"], R["sma_days"], "/".join(str(x) for x in R["momentum_lookbacks"]),
+        R["vol_window"], 100 * R["vol_target"], 100 * R["hysteresis"], R["verdict"]["horizon_weeks"],
+        esc(R["verdict"]["pass"]), esc(res["registration_hash"]), cats, sl, esc(R["account_rule"]),
+        esc(R["master_rule"]), esc(R["no_halts_without_a_way_back"]))
+
+
+def build(res: Dict, docs: Path, cockpit: Optional[Dict] = None) -> Path:
     m = res["master"]
     ew = res["benchmarks"]["equal_weight_hold"]
     spy = res["benchmarks"]["spy_hold"]
@@ -165,6 +269,9 @@ def build(res: Dict, docs: Path) -> Path:
     H.append('<p class="dim">Sleeves → category accounts → master. Paper money, rebuilt from '
              'prices every day, every number beside the do-nothing number it has to beat.</p>')
     H.append(_status(res))
+    H.append('<nav class="tabs" aria-label="Sections">%s</nav>' % "".join(
+        '<a href="#%s" data-tab="%s">%s</a>' % (k, k, v) for k, v in TABS))
+    H.append('<section class="tab" id="tab-command">')
 
     # ── the master ───────────────────────────────────────────────────────────────
     H.append("<h2>Master account</h2>")
@@ -192,7 +299,7 @@ def build(res: Dict, docs: Path) -> Path:
     seats = m.get("seats_now") or []
     H.append('<div class="card" style="margin-top:12px"><h3>What the master holds now</h3>'
              '<p><b>Seats:</b> %s</p><p><b>Target:</b> %s</p>'
-             '<p class="dim">Next monthly decision: %s (on the previous close). A held category '
+             '<p class="dim">Next scheduled decision: %s (on the previous close). A held category '
              'that falls below T-bills is dropped the next day.</p>' % (
                  esc(" + ".join(LABEL[c] for c in seats) or "none — everything in T-bills"),
                  esc(weights_text(m.get("target_now"))), esc(_next_monthly(res))))
@@ -291,23 +398,40 @@ def build(res: Dict, docs: Path) -> Path:
             {"name": "Master", "color": "var(--c1)", "points": m.get("forward_curve", []), "width": 2.4},
             {"name": "Equal-weight hold of all 8", "color": "var(--c2)", "points": ew.get("forward_curve", [])},
             {"name": "SPY hold", "color": "var(--c3)", "points": spy.get("forward_curve", [])}]))
-        trades = list(m.get("forward_trades", []))
-        for c in CATS:
-            trades += res["categories"][c]["account"].get("forward_trades", [])
-        trades.sort(key=lambda x: (x["date"], x["book"]), reverse=True)
-        tt = ['<div class="tw" style="margin-top:12px"><table><tr><th>date (close)</th><th>account</th>'
-              '<th>side</th><th>symbol</th><th>amount</th><th>fee</th><th>price</th></tr>']
-        for x in trades[:80]:
-            tt.append("<tr><td>%s</td><td>%s</td><td>%s</td><td>%s</td><td>%s</td><td>%s</td><td>%s</td></tr>" % (
-                esc(x["date"]), esc(x["book"].replace(":ACCOUNT", "")), esc(x["side"]), esc(x["sym"]),
-                money(x["usd"]), money(x["fee"]), esc(x["px"])))
-        if not trades:
-            tt.append('<tr><td colspan="7" class="dim">No trades yet.</td></tr>')
-        tt.append("</table></div>")
-        H.append("".join(tt))
+        H.append('<p class="dim">Every live fill, with the reason it happened and its full case file, is in '
+                 'the <a href="#trades">Trades</a> tab.</p>')
+
+    # ── recent decisions ────────────────────────────────────────────────────────
+    H.append("<h2>Recent decisions, in the rules' own words</h2>")
+    dec = [("Master", e) for e in m.get("recent_events", [])[-6:]]
+    for c in CATS:
+        dec += [(LABEL[c] + " account", e) for e in res["categories"][c]["account"]["recent_events"][-3:]]
+    dec.sort(key=lambda x: x[1]["date"], reverse=True)
+    H.append('<div class="tw"><table><tr><th>date</th><th>who</th><th>decision</th></tr>%s</table></div>' % "".join(
+        '<tr><td>%s</td><td>%s</td><td class="wrap">%s</td></tr>' % (esc(e["date"]), esc(who), esc(e["why"]))
+        for who, e in dec[:18]))
+    H.append('</section>')
+
+    # ── the interactive tabs (drawn by cockpit.js from data/ladder_cockpit.json) ──
+    for key, title, note in (
+            ("trades", "Every trade, with its case file",
+             "Every buy and sell by the Master, the four accounts and the sixteen sleeves, with the rule's "
+             "own reason. Click a row to open its case file."),
+            ("forensics", "Forensics",
+             "How the round trips and the individual decisions worked out, account by account."),
+            ("signals", "Signals",
+             "What each rule is looking at: price against its 200-day average, momentum against T-bills, "
+             "and every buy and sell marked on the chart.")):
+        H.append('<section class="tab" id="tab-%s"><h2>%s</h2><p class="dim">%s</p><div id="%s-app">'
+                 '<p class="dim">Loading…</p></div><noscript><p>This tab needs JavaScript. The same data is in '
+                 '<a href="data/ladder_cockpit.json">data/ladder_cockpit.json</a>.</p></noscript></section>' % (
+                     key, title, note, key))
 
     # ── the headline test (watch-only) ──────────────────────────────────────────
     hl = res.get("headlines")
+    H.append('<section class="tab" id="tab-headlines">')
+    if not hl:
+        H.append('<h2>Headline test — watch-only</h2><p class="dim">No headline data yet.</p>')
     if hl:
         H.append("<h2>Headline test — watch-only</h2>")
         if hl.get("error"):
@@ -375,26 +499,11 @@ def build(res: Dict, docs: Path) -> Path:
                                  cls(x["signed_pct"]), pct(x["signed_pct"]), "right" if x["hit"] else "wrong")
                              for x in reversed(g)))
 
-    # ── recent decisions ────────────────────────────────────────────────────────
-    H.append("<h2>Recent decisions, in the rules' own words</h2>")
-    dec = [("Master", e) for e in m.get("recent_events", [])[-6:]]
-    for c in CATS:
-        dec += [(LABEL[c] + " account", e) for e in res["categories"][c]["account"]["recent_events"][-3:]]
-    dec.sort(key=lambda x: x[1]["date"], reverse=True)
-    H.append('<div class="tw"><table><tr><th>date</th><th>who</th><th>decision</th></tr>%s</table></div>' % "".join(
-        '<tr><td>%s</td><td>%s</td><td class="wrap">%s</td></tr>' % (esc(e["date"]), esc(who), esc(e["why"]))
-        for who, e in dec[:18]))
+    H.append('</section>')
 
-    # ── rules and expectations ─────────────────────────────────────────────────
-    H.append("<h2>The rules and the honest expectation</h2>")
-    H.append('<div class="card"><p><b>Costs:</b> crypto 0.8%% per round trip, ETFs 0.1%%, T-bills free; '
-             'both sides of every trade pay. <b>Fills:</b> decided on one close, filled at the next. '
-             '<b>Prices:</b> adjusted closes (dividends and splits included) for every holding and every '
-             'benchmark.</p><p><b>What a pass looks like (week 104):</b> %s.</p>'
-             '<p><b>What to expect:</b> the replay says these rules give roughly market-like growth '
-             'with smaller worst drops — not more money than holding. A few months of forward data '
-             'cannot tell luck from skill; the page will not pretend otherwise.</p></div>' % esc(
-                 REGISTERED["verdict"]["pass"]))
+    # ── health and rules ────────────────────────────────────────────────────────
+    H.append('<section class="tab" id="tab-health"><h2>Health</h2>%s</section>' % _health(res, docs))
+    H.append('<section class="tab" id="tab-rules"><h2>The rules, as registered</h2>%s</section>' % _rules(res))
 
     H.append('<footer>SILMARIL 4.0 · registration %s · generated %s · rebuilt from prices on every run, '
              'so a missed day loses nothing.<br>Archives: <a href="%ssilmaril7_archive.html">the legacy 7.x '
@@ -404,7 +513,19 @@ def build(res: Dict, docs: Path) -> Path:
     # the 7.x site registered an offline cache (sw.js); this page needs none, so retire it
     H.append("<script>try{if('serviceWorker' in navigator){navigator.serviceWorker.getRegistrations()"
              ".then(function(rs){rs.forEach(function(r){r.unregister()})})}}catch(e){}</script>")
+    # tab router: without JavaScript every section simply shows, one after another
+    H.append("<script>(function(){var T=%s;function show(){var h=(location.hash||'#command').slice(1);"
+             "if(T.indexOf(h)<0)h='command';T.forEach(function(t){var s=document.getElementById('tab-'+t);"
+             "if(s)s.hidden=(t!==h);var a=document.querySelector('nav.tabs a[data-tab=\"'+t+'\"]');"
+             "if(a)a.setAttribute('aria-current',t===h?'page':'false');});"
+             "window.dispatchEvent(new CustomEvent('tabshown',{detail:h}));}"
+             "window.addEventListener('hashchange',show);show();})();</script>" % json.dumps([k for k, _ in TABS]))
+    H.append('<script src="cockpit.js?v=%s" defer></script>' % esc(str(res.get("generated_at", ""))[:19]))
     H.append("</div></body></html>")
+    # the interactive tabs' code ships beside the page
+    src = Path(__file__).resolve().parent / "cockpit.js"
+    if src.exists():
+        (Path(docs) / "cockpit.js").write_text(src.read_text(encoding="utf-8"), encoding="utf-8")
     path = Path(docs) / "index.html"
     path.parent.mkdir(parents=True, exist_ok=True)
     tmp = path.with_suffix(".html.tmp")

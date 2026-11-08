@@ -1,0 +1,95 @@
+{
+ "rules_hash": "e8b180560092fcf0",
+ "days": [],
+ "weeks": [
+  {
+   "week": "2026-W45",
+   "cat": "crypto",
+   "read_at": "2026-11-08T19:12:31.588214+00:00",
+   "days_covered": 0,
+   "n": 0,
+   "up": 0,
+   "down": 0,
+   "tone": 0.0,
+   "call": null,
+   "surge": null,
+   "assets": [
+    "BTC-USD",
+    "ETH-USD"
+   ],
+   "graded": false
+  },
+  {
+   "week": "2026-W45",
+   "cat": "stock",
+   "read_at": "2026-11-08T19:12:31.588214+00:00",
+   "days_covered": 0,
+   "n": 0,
+   "up": 0,
+   "down": 0,
+   "tone": 0.0,
+   "call": null,
+   "surge": null,
+   "assets": [
+    "SPY",
+    "QQQ"
+   ],
+   "graded": false
+  },
+  {
+   "week": "2026-W45",
+   "cat": "metal",
+   "read_at": "2026-11-08T19:12:31.588214+00:00",
+   "days_covered": 0,
+   "n": 0,
+   "up": 0,
+   "down": 0,
+   "tone": 0.0,
+   "call": null,
+   "surge": null,
+   "assets": [
+    "GLD",
+    "SLV"
+   ],
+   "graded": false
+  },
+  {
+   "week": "2026-W45",
+   "cat": "energy",
+   "read_at": "2026-11-08T19:12:31.588214+00:00",
+   "days_covered": 0,
+   "n": 0,
+   "up": 0,
+   "down": 0,
+   "tone": 0.0,
+   "call": null,
+   "surge": null,
+   "assets": [
+    "XLE",
+    "USO"
+   ],
+   "graded": false
+  }
+ ],
+ "seen": {},
+ "recent": {},
+ "verdicts": {
+  "direction": {
+   "status": "COLLECTING",
+   "calls": 0,
+   "need": 100,
+   "hits": 0,
+   "hit_rate_pct": null,
+   "z": null,
+   "avg_signed_pct": null
+  },
+  "warning": {
+   "status": "COLLECTING",
+   "surges": 0,
+   "need": 30,
+   "avg_move_ratio": null,
+   "t": null
+  }
+ },
+ "generated_at": "2026-11-08T19:12:31.588214+00:00"
+}

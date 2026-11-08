@@ -7,15 +7,15 @@
    "cats": {
     "crypto": {
      "ok": true,
-     "n": 96,
-     "up": 11,
-     "down": 8
+     "n": 129,
+     "up": 14,
+     "down": 10
     },
     "stock": {
      "ok": true,
-     "n": 88,
-     "up": 15,
-     "down": 10
+     "n": 114,
+     "up": 18,
+     "down": 17
     },
     "metal": {
      "ok": true,
@@ -25,9 +25,9 @@
     },
     "energy": {
      "ok": true,
-     "n": 99,
-     "up": 22,
-     "down": 7
+     "n": 114,
+     "up": 25,
+     "down": 8
     }
    }
   }
@@ -454,35 +454,105 @@
   "a6b749d492f5b203": "2026-11-08",
   "87436c67b5e12b48": "2026-11-08",
   "d7f93d28c5489f70": "2026-11-08",
-  "b5201198785b48d0": "2026-11-08"
+  "b5201198785b48d0": "2026-11-08",
+  "f76fda04e24ee40d": "2026-11-08",
+  "334d6028fbad1629": "2026-11-08",
+  "9c9a96532a0dc93b": "2026-11-08",
+  "2bb80f2c7cce62eb": "2026-11-08",
+  "0d6732d3b285f42d": "2026-11-08",
+  "3080630e8db8e83b": "2026-11-08",
+  "fefabc298832bccc": "2026-11-08",
+  "f854f0d2fbd78966": "2026-11-08",
+  "41e3e7cd2bc6f550": "2026-11-08",
+  "b3444154892d2990": "2026-11-08",
+  "09b01b3204ebbff1": "2026-11-08",
+  "47dc69271ab44c6d": "2026-11-08",
+  "b0638dcde44c96c9": "2026-11-08",
+  "8624e4250eda5f56": "2026-11-08",
+  "eb2e46d196a88365": "2026-11-08",
+  "5945f4ed7d8f519a": "2026-11-08",
+  "35f369f8cb0f3d01": "2026-11-08",
+  "33c815715150b087": "2026-11-08",
+  "564ce040bd212ffe": "2026-11-08",
+  "f3fbba0d93d9466e": "2026-11-08",
+  "6dc469f284ceb6b2": "2026-11-08",
+  "82777990b0aaf115": "2026-11-08",
+  "41c6bb1d1b945805": "2026-11-08",
+  "4d405546a58eb6e6": "2026-11-08",
+  "2011a7f77d705a13": "2026-11-08",
+  "71a8585e4764290c": "2026-11-08",
+  "0c88bcb2490fbf88": "2026-11-08",
+  "7e6c56e6ca553d6b": "2026-11-08",
+  "9e6ebb2f2f30b734": "2026-11-08",
+  "837d9db56f1d8f11": "2026-11-08",
+  "bcd991b463744d0e": "2026-11-08",
+  "c780f4f025c3a151": "2026-11-08",
+  "ac1c95862b75c975": "2026-11-08",
+  "6a1f3821c2df3c9c": "2026-11-08",
+  "bc7472225fcafad9": "2026-11-08",
+  "f0d7006594e7dbf6": "2026-11-08",
+  "7139ba326c61a62b": "2026-11-08",
+  "657d852556f18c89": "2026-11-08",
+  "d19df22203310a77": "2026-11-08",
+  "2daa7a4bd4e39629": "2026-11-08",
+  "ca983c464a4ca3b0": "2026-11-08",
+  "d26ece705d2161e0": "2026-11-08",
+  "b314d2f760637597": "2026-11-08",
+  "2cf682ef4ace2b8a": "2026-11-08",
+  "9c6cb3dc2dba9916": "2026-11-08",
+  "d82cb517bc5a89f3": "2026-11-08",
+  "fee5823367426bcf": "2026-11-08",
+  "c8eaf289b25fe43f": "2026-11-08",
+  "eb4a7a08c021f4b1": "2026-11-08",
+  "904a69b8db369853": "2026-11-08",
+  "fd22e07dc8c805bf": "2026-11-08",
+  "c5e8f18ef6e731eb": "2026-11-08",
+  "a1b134189fc3b277": "2026-11-08",
+  "cdc8bebf1411b2b0": "2026-11-08",
+  "ef92d450ee8294e8": "2026-11-08",
+  "833c30a7ddb8999e": "2026-11-08",
+  "6fc3e678a85462ad": "2026-11-08",
+  "0801001b7e1b9d98": "2026-11-08",
+  "7295204f9f09587f": "2026-11-08",
+  "5357bf6c1a28113c": "2026-11-08",
+  "b8a6bc0eeb8aaeff": "2026-11-08",
+  "de54cd61a8bec821": "2026-11-08",
+  "9c3235f72cde5e63": "2026-11-08",
+  "061b8a002b956b58": "2026-11-08",
+  "dc01673264fcc00d": "2026-11-08",
+  "b313cb63d0fb6b68": "2026-11-08",
+  "4e81628a232b40e9": "2026-11-08",
+  "8ded4015b9d99a6d": "2026-11-08",
+  "e90eaf85b532d759": "2026-11-08",
+  "701f457eb3144343": "2026-11-08",
+  "5d7dea33e1c555b5": "2026-11-08",
+  "f68b5fae3ee0a073": "2026-11-08",
+  "b57677bc77f8886a": "2026-11-08",
+  "ece8222d471f9552": "2026-11-08"
  },
  "recent": {
   "crypto": {
    "date": "2026-11-08",
    "headlines": [
     {
-     "title": "Bitcoin Price Forecast: BTC/USD 12.5% Plunge Nears Critical Support",
+     "title": "FOMO and FUD in Crypto: Meaning and Fear & Greed Index",
      "score": -1
     },
     {
-     "title": "Two Solo Bitcoin Miners Beat Million-to-One Odds to Win $230,000",
+     "title": "Ethereum price prediction as spot ETH ETF outflows surge after US midterms",
      "score": 1
     },
     {
-     "title": "A Top Silicon Valley Investor Predicts a Bitcoin Crash to $57,000 Within the Next 12 Months. Here's Why He's Wrong.",
+     "title": "Bitcoin Price Rises To $75.6k, Buying Conviction Still Low",
+     "score": 1
+    },
+    {
+     "title": "Crypto Bull Run: Saylor Eyes a Two-to-Three-Year Rally as Remittix Earn Reports $1.3M TVL in Four Days",
+     "score": 1
+    },
+    {
+     "title": "Bitcoin is back in EXTREME fear as price hovers around $75k:",
      "score": -1
-    },
-    {
-     "title": "Crypto Wallet Revenue Falls $700M to $400M in H1 2026",
-     "score": -1
-    },
-    {
-     "title": "Bitcoin Price Prediction: Why BTC Could Rally This Week as $70K Risk Persists",
-     "score": 1
-    },
-    {
-     "title": "Bitcoin Holds Strong: Why $76,000 Is the Level That Matters Now",
-     "score": 1
     }
    ]
   },
@@ -490,27 +560,27 @@
    "date": "2026-11-08",
    "headlines": [
     {
-     "title": "Wall Street Just Set a Record That Could Signal Trouble for the Stock Market",
+     "title": "The market bloodbath just exposed Wall Street's true fears about U.S. debt, top economist warns",
+     "score": -1
+    },
+    {
+     "title": "Warren Buffett Has 1 Simple Rule for Surviving a Stock Market Crash, and History Says It's Never Once Failed",
+     "score": -1
+    },
+    {
+     "title": "Intuitive Surgical Placed 546 da Vinci Systems Last Quarter. Why Wall Street's Sell-Off Misses the Point.",
+     "score": -1
+    },
+    {
+     "title": "Oil Futures Slide As Market Holds Out Hopes for Middle East Diplomacy",
+     "score": -1
+    },
+    {
+     "title": "Metamorphic: Wall Street's Last Rally Before the Rules Change",
      "score": 1
     },
     {
-     "title": "A Stock Market Crash Could Be Life-Changing for Investors Who Have These 3 Things",
-     "score": -1
-    },
-    {
-     "title": "Prediction: A Stock Market Crash Is Coming. Here's What Dividend Investors Should Do Based on Warren Buffett's Advice",
-     "score": -1
-    },
-    {
-     "title": "Nasdaq 100 Forecast: NDX slumps as Amazon and Intel disappoint",
-     "score": -1
-    },
-    {
-     "title": "Ten Months of War to Gain 46 Square Miles: How Russia Is Failing on the Battlefield",
-     "score": 1
-    },
-    {
-     "title": "The Nasdaq Is Toast: QQQ Could Go 40% Lower. Here's How, And What Could Stop It. (QQQ)",
+     "title": "Intel: The Sell-Off Has Done Most Of The Work",
      "score": -1
     }
    ]
@@ -548,28 +618,20 @@
    "date": "2026-11-08",
    "headlines": [
     {
-     "title": "WTI oil price outlook: After a 17.5% slide, can buyers reclaim $92.53?",
+     "title": "Oil Futures Slide As Market Holds Out Hopes for Middle East Diplomacy",
      "score": -1
     },
     {
-     "title": "Oil Prices Extend Gains on Escalating Middle East Hostilities",
+     "title": "Can the Transition to Clean Energy Survive the War in Iran?",
      "score": 1
     },
     {
-     "title": "Crude Oil Weekly Outlook: Houthi Attacks vs. a Double Top?",
+     "title": "Building owned by Saudi oil giant damaged in missile attack on Riyadh\u2019s financial district",
      "score": 1
     },
     {
-     "title": "AAA Texas: Gas Prices Fall as Crude Oil Prices Decline",
-     "score": -1
-    },
-    {
-     "title": "Tensions rise in the Middle East",
+     "title": "France's polarised road to 2027: Repression, racism and the rise of the far right",
      "score": 1
-    },
-    {
-     "title": "ConocoPhillips: A Crude Awakening Is Coming (Rating Downgrade) (NYSE:COP)",
-     "score": -1
     }
    ]
   }
@@ -592,5 +654,5 @@
    "t": null
   }
  },
- "generated_at": "2026-11-08T19:17:08.033433+00:00"
+ "generated_at": "2026-11-08T21:28:47.460723+00:00"
 }

@@ -30,6 +30,36 @@
      "down": 8
     }
    }
+  },
+  {
+   "date": "2026-11-09",
+   "read_at": "2026-11-09T09:46:31.392701+00:00",
+   "cats": {
+    "crypto": {
+     "ok": true,
+     "n": 92,
+     "up": 5,
+     "down": 11
+    },
+    "stock": {
+     "ok": true,
+     "n": 75,
+     "up": 12,
+     "down": 8
+    },
+    "metal": {
+     "ok": true,
+     "n": 75,
+     "up": 27,
+     "down": 4
+    },
+    "energy": {
+     "ok": true,
+     "n": 94,
+     "up": 17,
+     "down": 14
+    }
+   }
   }
  ],
  "weeks": [
@@ -93,6 +123,74 @@
    "up": 0,
    "down": 0,
    "tone": 0.0,
+   "call": null,
+   "surge": null,
+   "assets": [
+    "XLE",
+    "USO"
+   ],
+   "graded": false
+  },
+  {
+   "week": "2026-W46",
+   "cat": "crypto",
+   "read_at": "2026-11-09T09:46:31.392701+00:00",
+   "days_covered": 1,
+   "n": 129,
+   "up": 14,
+   "down": 10,
+   "tone": 0.031,
+   "call": null,
+   "surge": null,
+   "assets": [
+    "BTC-USD",
+    "ETH-USD"
+   ],
+   "graded": false
+  },
+  {
+   "week": "2026-W46",
+   "cat": "stock",
+   "read_at": "2026-11-09T09:46:31.392701+00:00",
+   "days_covered": 1,
+   "n": 114,
+   "up": 18,
+   "down": 17,
+   "tone": 0.0088,
+   "call": null,
+   "surge": null,
+   "assets": [
+    "SPY",
+    "QQQ"
+   ],
+   "graded": false
+  },
+  {
+   "week": "2026-W46",
+   "cat": "metal",
+   "read_at": "2026-11-09T09:46:31.392701+00:00",
+   "days_covered": 1,
+   "n": 69,
+   "up": 6,
+   "down": 10,
+   "tone": -0.058,
+   "call": null,
+   "surge": null,
+   "assets": [
+    "GLD",
+    "SLV"
+   ],
+   "graded": false
+  },
+  {
+   "week": "2026-W46",
+   "cat": "energy",
+   "read_at": "2026-11-09T09:46:31.392701+00:00",
+   "days_covered": 1,
+   "n": 114,
+   "up": 25,
+   "down": 8,
+   "tone": 0.1491,
    "call": null,
    "surge": null,
    "assets": [
@@ -528,110 +626,458 @@
   "5d7dea33e1c555b5": "2026-11-08",
   "f68b5fae3ee0a073": "2026-11-08",
   "b57677bc77f8886a": "2026-11-08",
-  "ece8222d471f9552": "2026-11-08"
+  "ece8222d471f9552": "2026-11-08",
+  "35e26e74d5e63cc4": "2026-11-09",
+  "064e7d959269febd": "2026-11-09",
+  "e683c21483eded2e": "2026-11-09",
+  "8a29781e116dabfa": "2026-11-09",
+  "7cc559007e3d2011": "2026-11-09",
+  "52c5a671e25ff1d6": "2026-11-09",
+  "ec8cce1878b9ee87": "2026-11-09",
+  "84f3a4fe6008c7ac": "2026-11-09",
+  "35f58b92967a2372": "2026-11-09",
+  "b9e6f5882d70e828": "2026-11-09",
+  "86334fdf11d907db": "2026-11-09",
+  "b550275b42f8a2fa": "2026-11-09",
+  "6c8177cc327d2b32": "2026-11-09",
+  "8b64ae6c2436d007": "2026-11-09",
+  "0eb7cb2395ff5f73": "2026-11-09",
+  "c1c6efda888827b1": "2026-11-09",
+  "a160513a51d06f59": "2026-11-09",
+  "9c9b01c95ab1b60c": "2026-11-09",
+  "3e7a7653d4f05931": "2026-11-09",
+  "020e172a3c7d418f": "2026-11-09",
+  "ecfbb0ba122c64d6": "2026-11-09",
+  "a215b58796cbe855": "2026-11-09",
+  "aa0523f6ba352bf6": "2026-11-09",
+  "7f3e40878dbe7832": "2026-11-09",
+  "21f2c581b2487c51": "2026-11-09",
+  "3198fe3a5d448441": "2026-11-09",
+  "63145d1d9cb8f077": "2026-11-09",
+  "721bcfa05eba8583": "2026-11-09",
+  "f617ff8342962c15": "2026-11-09",
+  "7191566a3f51525b": "2026-11-09",
+  "17ac7179fc466a10": "2026-11-09",
+  "6cbc9bc011dcc96c": "2026-11-09",
+  "d32e453598292b67": "2026-11-09",
+  "15a055d04115c397": "2026-11-09",
+  "30544e21ca7dacd7": "2026-11-09",
+  "e3f364b9dd9e3363": "2026-11-09",
+  "ce8c14ee037567c4": "2026-11-09",
+  "f53b6c76cd9dc350": "2026-11-09",
+  "ff94de4b024626c7": "2026-11-09",
+  "2dbffdaa24dec4f7": "2026-11-09",
+  "2cdc88df145c1b74": "2026-11-09",
+  "6140354887ecbe89": "2026-11-09",
+  "097b4815ca55b7f2": "2026-11-09",
+  "782d24d49fedaa25": "2026-11-09",
+  "de85ab838f3da1f0": "2026-11-09",
+  "39690bce78332a66": "2026-11-09",
+  "6d6cdda98a146058": "2026-11-09",
+  "a3c7df141e80a60f": "2026-11-09",
+  "72c22671e7da76a6": "2026-11-09",
+  "4d2e7254de124b53": "2026-11-09",
+  "a9dac95c3881a637": "2026-11-09",
+  "a0f5460932451e28": "2026-11-09",
+  "5f30ed51582be5ec": "2026-11-09",
+  "cbb6de442c3201fd": "2026-11-09",
+  "f1bbbb9cd761049e": "2026-11-09",
+  "07d1695c693bb753": "2026-11-09",
+  "4c75fe2c79950249": "2026-11-09",
+  "2635f7fec27189d5": "2026-11-09",
+  "3169abb7f063ed5b": "2026-11-09",
+  "16cf6e46fe5fc90a": "2026-11-09",
+  "15a5fe6505da6d37": "2026-11-09",
+  "db4041b94a0626d0": "2026-11-09",
+  "ee6dfcaabec8937e": "2026-11-09",
+  "9d59655139f28eb0": "2026-11-09",
+  "3349703b5859bbf1": "2026-11-09",
+  "ef0ede1e48cb20ef": "2026-11-09",
+  "170b4a11a7ad375b": "2026-11-09",
+  "42fe18bb7405e96c": "2026-11-09",
+  "e4be73ecec2ef15d": "2026-11-09",
+  "7c45a75a51218cb7": "2026-11-09",
+  "32d96b08150c8246": "2026-11-09",
+  "7ed7bac256bbb99d": "2026-11-09",
+  "8751489b0ceedfc4": "2026-11-09",
+  "eb852a24b662ec03": "2026-11-09",
+  "1936e0178e59a73c": "2026-11-09",
+  "037a8e0ce6585712": "2026-11-09",
+  "e7ab2856dd3ad056": "2026-11-09",
+  "b7d70755a912da13": "2026-11-09",
+  "f9444d7aee8b4270": "2026-11-09",
+  "2abce45a9094267b": "2026-11-09",
+  "0f44aaf37d8b1b6b": "2026-11-09",
+  "de54d4b682e895af": "2026-11-09",
+  "76853e55f8823aaf": "2026-11-09",
+  "f01df53628aac89e": "2026-11-09",
+  "4566c1a5dabef22b": "2026-11-09",
+  "369fda2ea9cc7350": "2026-11-09",
+  "9b877685509ae6ce": "2026-11-09",
+  "457b49d9afe111af": "2026-11-09",
+  "a9a587b9d31070b6": "2026-11-09",
+  "1e628611ac0d5b63": "2026-11-09",
+  "b4e9add5f2f5ee7a": "2026-11-09",
+  "cbdb2e4205dfc494": "2026-11-09",
+  "44246d1f8b143e19": "2026-11-09",
+  "9b01c515b09dd6d1": "2026-11-09",
+  "311ff2b4edac80a3": "2026-11-09",
+  "01aad0d054dd3328": "2026-11-09",
+  "12901168d354c6f8": "2026-11-09",
+  "410fb500c104f7e9": "2026-11-09",
+  "f9b5331d44ca22ce": "2026-11-09",
+  "387f2f6458200dea": "2026-11-09",
+  "35598a088c9c546b": "2026-11-09",
+  "4e6422813797fae3": "2026-11-09",
+  "ac4c5ee98d9de3c4": "2026-11-09",
+  "2b4a08fe76ba66e3": "2026-11-09",
+  "bb724244b69f7b54": "2026-11-09",
+  "4d45d9293ea3e81f": "2026-11-09",
+  "09d4872f287172e8": "2026-11-09",
+  "8d60d256e6953586": "2026-11-09",
+  "44bb73f0e5db6749": "2026-11-09",
+  "c7d99832cbacf62e": "2026-11-09",
+  "4e905879a3c91ca0": "2026-11-09",
+  "105072a73f6ee942": "2026-11-09",
+  "aef2eee8d6be6a0c": "2026-11-09",
+  "645ab0a235850763": "2026-11-09",
+  "c04716205f414cc7": "2026-11-09",
+  "ddac46ee53d3dfdf": "2026-11-09",
+  "1c59f3b225e6e891": "2026-11-09",
+  "4ad134c212650e55": "2026-11-09",
+  "aba1618bed2875c3": "2026-11-09",
+  "3c0511b0eedef5b6": "2026-11-09",
+  "ce1f337dd9aec5cf": "2026-11-09",
+  "75c3f2d2afa6f5dd": "2026-11-09",
+  "d7891626aec390d3": "2026-11-09",
+  "446a37a09b0b357f": "2026-11-09",
+  "022815e60a43650f": "2026-11-09",
+  "6aa8fd037e5321bb": "2026-11-09",
+  "d9cb3ed2fde9638a": "2026-11-09",
+  "e943a97d29f2d501": "2026-11-09",
+  "b499591413cd9f36": "2026-11-09",
+  "3f79397ef8aa01c8": "2026-11-09",
+  "0881324d65932d83": "2026-11-09",
+  "0b505a339e18cf07": "2026-11-09",
+  "2c6492e11f9e855b": "2026-11-09",
+  "e9c8c9ac72b1d3d3": "2026-11-09",
+  "a729648260c0f738": "2026-11-09",
+  "c36e0961d86c2bf4": "2026-11-09",
+  "8674fcc182a4fd21": "2026-11-09",
+  "c48f12b09a2b6984": "2026-11-09",
+  "40e9832cf2acb6af": "2026-11-09",
+  "d6a118d6ca4929e3": "2026-11-09",
+  "0224a6305d2b2c8d": "2026-11-09",
+  "5fb573a7a658ee4d": "2026-11-09",
+  "f3a1a4c5bb4b8962": "2026-11-09",
+  "02839d45069855e0": "2026-11-09",
+  "ca053a02ba1e4a85": "2026-11-09",
+  "cbcf07ec7afa0111": "2026-11-09",
+  "62ac283338fa2052": "2026-11-09",
+  "5c8b0cb9f7c6fac2": "2026-11-09",
+  "6bd8e874f7be1fd4": "2026-11-09",
+  "3465bb84c671957d": "2026-11-09",
+  "3794969caa161446": "2026-11-09",
+  "4d8d25995956b54a": "2026-11-09",
+  "6c86756109e8358c": "2026-11-09",
+  "2d6b181c4fc9fa39": "2026-11-09",
+  "f154cc3b6006321e": "2026-11-09",
+  "e53dd94928c68364": "2026-11-09",
+  "e7f22eeea2bbc87c": "2026-11-09",
+  "7753bfd0171c1e6b": "2026-11-09",
+  "9cab3625d158b7c4": "2026-11-09",
+  "41046a869de5caef": "2026-11-09",
+  "d02754269959efdb": "2026-11-09",
+  "a058f5fd5af3a44c": "2026-11-09",
+  "b2b4f11fc8950ab6": "2026-11-09",
+  "3ee9ca3578b9d603": "2026-11-09",
+  "9c283295921f970a": "2026-11-09",
+  "74d9e7204632c8c6": "2026-11-09",
+  "21c53effb8ca278d": "2026-11-09",
+  "c01378d843223673": "2026-11-09",
+  "3da0550352258442": "2026-11-09",
+  "6b1920b787889cb2": "2026-11-09",
+  "48fcc159f426d47c": "2026-11-09",
+  "6ca0cfa6763612dc": "2026-11-09",
+  "87fc9b9c638ca788": "2026-11-09",
+  "6e2c3bf2e1f77d5a": "2026-11-09",
+  "1c7e9f537c21cd1f": "2026-11-09",
+  "180bee8f23275d0b": "2026-11-09",
+  "dfc7f5053f36030f": "2026-11-09",
+  "63aaa0ef9c3ad092": "2026-11-09",
+  "042185dd0ea893a9": "2026-11-09",
+  "5939a4f8878cc359": "2026-11-09",
+  "ee42cfcccbe7e784": "2026-11-09",
+  "5888d2d4936ff95d": "2026-11-09",
+  "cc131bdccdc97960": "2026-11-09",
+  "74bb5449af36ff45": "2026-11-09",
+  "f3c8deaecdf59fdf": "2026-11-09",
+  "97d534a0ab000e26": "2026-11-09",
+  "69f9113f1b5e156a": "2026-11-09",
+  "9ba8b44bc9bdab19": "2026-11-09",
+  "18dbf54adb6ffe63": "2026-11-09",
+  "dad5519990b09180": "2026-11-09",
+  "05cdb7f4c2b342f9": "2026-11-09",
+  "fdfc184c9a9c3c80": "2026-11-09",
+  "0eaf91278aed79cb": "2026-11-09",
+  "01212561b6b3f918": "2026-11-09",
+  "b8ec4430f0eba41e": "2026-11-09",
+  "68114178392e466c": "2026-11-09",
+  "02b862d985987f6c": "2026-11-09",
+  "a6be7bb05936f85e": "2026-11-09",
+  "5ef31df4a399b221": "2026-11-09",
+  "1296399eb9fce771": "2026-11-09",
+  "36ac09c48197e7fe": "2026-11-09",
+  "c2336c3c4c586260": "2026-11-09",
+  "55d49b1597fc0f03": "2026-11-09",
+  "33832b3896c63de8": "2026-11-09",
+  "8f5c447b781bd8b9": "2026-11-09",
+  "286390049d09e00d": "2026-11-09",
+  "f80f1efa549267b9": "2026-11-09",
+  "b1fab96913bc66ef": "2026-11-09",
+  "c10dde945b9a8acf": "2026-11-09",
+  "d96fab852905a754": "2026-11-09",
+  "b20b6327acd2d635": "2026-11-09",
+  "26c6398ece1ef93d": "2026-11-09",
+  "14062fef2418384a": "2026-11-09",
+  "31596fe40cbef405": "2026-11-09",
+  "24afdf0f1021c5da": "2026-11-09",
+  "5dde407d7520d668": "2026-11-09",
+  "bf417642d79e9b7c": "2026-11-09",
+  "e4252c4dff9228b5": "2026-11-09",
+  "6fdcc664797d09bd": "2026-11-09",
+  "80cfcc0801877738": "2026-11-09",
+  "5e76a2f1bca10b68": "2026-11-09",
+  "a5005a39b9ad0772": "2026-11-09",
+  "f83330bf94b2e35a": "2026-11-09",
+  "54616b5cfe0099f2": "2026-11-09",
+  "811ff0af43eae905": "2026-11-09",
+  "0d85693a2a40c5d3": "2026-11-09",
+  "2bcf6a7a85ccc346": "2026-11-09",
+  "2922a541f22c5c3b": "2026-11-09",
+  "197227f3279bcf97": "2026-11-09",
+  "962f090717fd1eb4": "2026-11-09",
+  "c424f1861d0a539c": "2026-11-09",
+  "ead34836bc881f59": "2026-11-09",
+  "4e56d875a6cd6e8d": "2026-11-09",
+  "18f312910bb2e4e0": "2026-11-09",
+  "e0d64a5d9773be35": "2026-11-09",
+  "4d050e4abeaf7660": "2026-11-09",
+  "9b645a2cf33f6c6e": "2026-11-09",
+  "4db5535ea6b10f31": "2026-11-09",
+  "f29b012442b02212": "2026-11-09",
+  "b66d71830af44fbd": "2026-11-09",
+  "b4c5b565f0bfc080": "2026-11-09",
+  "0b8b025c3a03bff8": "2026-11-09",
+  "f16b8868264b42df": "2026-11-09",
+  "e45e0d1d123f80d9": "2026-11-09",
+  "35e6b90f0249e13e": "2026-11-09",
+  "dfea0c93ef7e6013": "2026-11-09",
+  "678d0515d4ea94b2": "2026-11-09",
+  "63093eecdddecb7e": "2026-11-09",
+  "2d42f68b6662e357": "2026-11-09",
+  "2b7bb48d33f702cf": "2026-11-09",
+  "f8b5b35b5128521b": "2026-11-09",
+  "73bab489110d983f": "2026-11-09",
+  "3a062a44e19f5f44": "2026-11-09",
+  "b7cd4e1a5eda1a31": "2026-11-09",
+  "23564d2971d4bfc3": "2026-11-09",
+  "06280969cbe3b8e4": "2026-11-09",
+  "1418fbf73dfba794": "2026-11-09",
+  "de71b30bf40d67a3": "2026-11-09",
+  "88acb84e891e8e53": "2026-11-09",
+  "0a661eca93bec849": "2026-11-09",
+  "592794a52d6fb8f0": "2026-11-09",
+  "a95aa5db369bed1a": "2026-11-09",
+  "bca19ecea3b95f62": "2026-11-09",
+  "091143fca9199a0d": "2026-11-09",
+  "dff0c03c60f5dadf": "2026-11-09",
+  "a11d26adce1184eb": "2026-11-09",
+  "93867dfac994e66d": "2026-11-09",
+  "ce9723024e0f70b7": "2026-11-09",
+  "da8349ff4385c387": "2026-11-09",
+  "77191ee521ac48cb": "2026-11-09",
+  "050eedfa1662ef8c": "2026-11-09",
+  "54933e5a31171115": "2026-11-09",
+  "2826ad6a8cafb5b2": "2026-11-09",
+  "ade954f41e9f62ea": "2026-11-09",
+  "cbc0ad649bc0ee39": "2026-11-09",
+  "7cf5063fbf1c61b2": "2026-11-09",
+  "c4af104af17292c3": "2026-11-09",
+  "687f97667b04655d": "2026-11-09",
+  "831cb64c96301c20": "2026-11-09",
+  "bfa9c8911ef5e280": "2026-11-09",
+  "6123f30390ad4685": "2026-11-09",
+  "e3ebbf4180c48fc4": "2026-11-09",
+  "cd9c2a01fc65e124": "2026-11-09",
+  "bff1c6149a61ac47": "2026-11-09",
+  "de46828efc8c9717": "2026-11-09",
+  "f676567837d7ba97": "2026-11-09",
+  "f2d956edb7e37d94": "2026-11-09",
+  "b28de23d729e8a74": "2026-11-09",
+  "f612101910e74055": "2026-11-09",
+  "31d4f01b75b3f34f": "2026-11-09",
+  "3756654e222e4077": "2026-11-09",
+  "8de5957485cbc8a2": "2026-11-09",
+  "99c33e450ee59bf5": "2026-11-09",
+  "68310db6528e9248": "2026-11-09",
+  "8300907abdd4d014": "2026-11-09",
+  "8f14f6d9da6574c8": "2026-11-09",
+  "22eb05a3f1d50925": "2026-11-09",
+  "87e15b1bf61e4a93": "2026-11-09",
+  "f8fb8607df611351": "2026-11-09",
+  "e60336c960aeb672": "2026-11-09",
+  "b762fe431ff172e1": "2026-11-09",
+  "60d60370f92534b6": "2026-11-09",
+  "b7d80993db59ffe5": "2026-11-09",
+  "aca9dcc585d58ac1": "2026-11-09",
+  "d5bc18919b24f1d1": "2026-11-09",
+  "f24d261655995035": "2026-11-09",
+  "28009c42cba10e91": "2026-11-09",
+  "3a9b5e0778759ebc": "2026-11-09",
+  "901ebd37b9814bea": "2026-11-09",
+  "bfacc68086151128": "2026-11-09",
+  "bdb46c738a9221a7": "2026-11-09",
+  "4ed779ecb52536da": "2026-11-09",
+  "05de8076913935d2": "2026-11-09",
+  "59387efe56c180a8": "2026-11-09",
+  "a5206b4b9897a829": "2026-11-09",
+  "d17440e202539856": "2026-11-09",
+  "bb02d248f9ab11fb": "2026-11-09",
+  "4bb9c7bd1e4bf44e": "2026-11-09",
+  "90d716ba14817cde": "2026-11-09",
+  "16a6a14079e5a751": "2026-11-09",
+  "736c374f1bbc6d50": "2026-11-09",
+  "b0bcd03af8b3cd22": "2026-11-09",
+  "77e2a53bb37d5698": "2026-11-09",
+  "cac0e853a3cf97ab": "2026-11-09",
+  "5c341696e5f7b29c": "2026-11-09",
+  "fe392c4e2db621ee": "2026-11-09",
+  "78467f0e5384f64b": "2026-11-09",
+  "ee5b9cf1e1e457b6": "2026-11-09",
+  "80e17256d5d66f31": "2026-11-09",
+  "9d016651c1a19ee8": "2026-11-09",
+  "588ce0d5ab8088c7": "2026-11-09",
+  "9bd80aab86b24c38": "2026-11-09",
+  "3ee1123ade52851d": "2026-11-09",
+  "a828699bf80880e3": "2026-11-09",
+  "21c6ebc5efa7df48": "2026-11-09",
+  "dd50e6127030ca43": "2026-11-09"
  },
  "recent": {
   "crypto": {
-   "date": "2026-11-08",
+   "date": "2026-11-09",
    "headlines": [
     {
-     "title": "FOMO and FUD in Crypto: Meaning and Fear & Greed Index",
+     "title": "Bitcoin's drop and pop triggers $1 billion in liquidations",
      "score": -1
     },
     {
-     "title": "Ethereum price prediction as spot ETH ETF outflows surge after US midterms",
-     "score": 1
-    },
-    {
-     "title": "Bitcoin Price Rises To $75.6k, Buying Conviction Still Low",
-     "score": 1
-    },
-    {
-     "title": "Crypto Bull Run: Saylor Eyes a Two-to-Three-Year Rally as Remittix Earn Reports $1.3M TVL in Four Days",
-     "score": 1
-    },
-    {
-     "title": "Bitcoin is back in EXTREME fear as price hovers around $75k:",
+     "title": "Cryptocurrencies slide to two-month lows after US midterms",
      "score": -1
+    },
+    {
+     "title": "Michigan sees rise in Bitcoin kiosk scams",
+     "score": 1
+    },
+    {
+     "title": "Scaramucci Sees a 'Second Chance' as Bitcoin Erases Gains Since Trump's November 2024 Election Victory",
+     "score": 1
+    },
+    {
+     "title": "Gold-Backed Tokens Shine in Falling Crypto Market, Defy Bitcoin and Ethereum\u2019s Downturn Last Week",
+     "score": -1
+    },
+    {
+     "title": "Bitcoin Below $75,000 as Rebound Remains Elusive",
+     "score": 1
     }
    ]
   },
   "stock": {
-   "date": "2026-11-08",
+   "date": "2026-11-09",
    "headlines": [
     {
-     "title": "The market bloodbath just exposed Wall Street's true fears about U.S. debt, top economist warns",
-     "score": -1
-    },
-    {
-     "title": "Warren Buffett Has 1 Simple Rule for Surviving a Stock Market Crash, and History Says It's Never Once Failed",
-     "score": -1
-    },
-    {
-     "title": "Intuitive Surgical Placed 546 da Vinci Systems Last Quarter. Why Wall Street's Sell-Off Misses the Point.",
-     "score": -1
-    },
-    {
-     "title": "Oil Futures Slide As Market Holds Out Hopes for Middle East Diplomacy",
-     "score": -1
-    },
-    {
-     "title": "Metamorphic: Wall Street's Last Rally Before the Rules Change",
+     "title": "Asian Equities Mostly Rebound, Though Sentiment Remains Fragile",
      "score": 1
     },
     {
-     "title": "Intel: The Sell-Off Has Done Most Of The Work",
+     "title": "MTN Group Posts Revenue Growth, Higher Profitability",
+     "score": 1
+    },
+    {
+     "title": "Get ready for the seasonal stock market boom! 2 top bargain shares to consider",
+     "score": 1
+    },
+    {
+     "title": "SPX: S&P 500 Futures Edge Higher After Asia Stocks Power Up. Key AI Earnings Ahead",
+     "score": 1
+    },
+    {
+     "title": "3 Super Growth Stocks to Buy Hand Over Fist If the Stock Market Crashes",
+     "score": -1
+    },
+    {
+     "title": "Dow futures up 350 points, Nasdaq reverses losses despite Nvidia concerns - Here are the key triggers for the week - CNBC TV18",
      "score": -1
     }
    ]
   },
   "metal": {
-   "date": "2026-11-08",
+   "date": "2026-11-09",
    "headlines": [
     {
-     "title": "Gold Price Forecast: XAU/USD 17% Plunge Threatens Multi-Year Uptrend",
-     "score": -1
-    },
-    {
-     "title": "Goldman Sachs revamps 2027 gold price target, but signals rebound",
+     "title": "Gold and Silver Price Forecast: Rebound Puts $4,150 and $55 in Focus",
      "score": 1
     },
     {
-     "title": "Silver Price Forecast: Rally Faces US CPI Test After Dollar Jump",
+     "title": "Gold Prices Rebound Above $4120 Amid Strong U.S. Employment Data",
      "score": 1
     },
     {
-     "title": "Gold prices drop",
+     "title": "ZAWYA: Gold prices in Egypt fall on November 8",
      "score": -1
     },
     {
-     "title": "Gold Prices Drop as Speculative Funds Withdraw - CFTC Data",
-     "score": -1
+     "title": "Gold Prices Rise Day After Diwali, JP Morgan Predicts 46% Jump By 2026-End. Should You Buy?",
+     "score": 1
     },
     {
-     "title": "Global Gold Prices Down 24% From Record. In India, It's Down 20%. Here's What Makes Up The Difference",
+     "title": "Strong US Jobs Data Weighs on Gold, Prices Retreat to Around $4,070",
+     "score": 1
+    },
+    {
+     "title": "Gold futures jump Rs 1,801 to Rs 1.44 lakh per 10 gm on firm spot demand",
      "score": 1
     }
    ]
   },
   "energy": {
-   "date": "2026-11-08",
+   "date": "2026-11-09",
    "headlines": [
     {
-     "title": "Oil Futures Slide As Market Holds Out Hopes for Middle East Diplomacy",
+     "title": "Brent Crude Oil Price Jumps After Attack on Iran\u2019s South Pars Field",
+     "score": 1
+    },
+    {
+     "title": "Oil Prices Fall, Staying Below $100, as Trump Plays Down New Iran Strikes",
      "score": -1
     },
     {
-     "title": "Can the Transition to Clean Energy Survive the War in Iran?",
+     "title": "Precious metals start week with gains as crude oil prices decline",
      "score": 1
     },
     {
-     "title": "Building owned by Saudi oil giant damaged in missile attack on Riyadh\u2019s financial district",
+     "title": "Gold rises over 1% as softer oil prices ease inflation worries",
      "score": 1
     },
     {
-     "title": "France's polarised road to 2027: Repression, racism and the rise of the far right",
+     "title": "2026 Iran war | Oil, Explained, United States, Israel, Strait of Hormuz, Map, & Conflict",
      "score": 1
+    },
+    {
+     "title": "U.S. Treasury Yields Edge Lower as Oil Prices Decline",
+     "score": -1
     }
    ]
   }
@@ -654,5 +1100,5 @@
    "t": null
   }
  },
- "generated_at": "2026-11-08T21:28:47.460723+00:00"
+ "generated_at": "2026-11-09T09:46:31.392701+00:00"
 }

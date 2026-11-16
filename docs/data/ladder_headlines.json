@@ -240,6 +240,24 @@
      "down": 7
     }
    }
+  },
+  {
+   "date": "2026-11-16",
+   "read_at": "2026-11-16T09:39:26.106240+00:00",
+   "cats": {
+    "crypto": {
+     "ok": false
+    },
+    "stock": {
+     "ok": false
+    },
+    "metal": {
+     "ok": false
+    },
+    "energy": {
+     "ok": false
+    }
+   }
   }
  ],
  "weeks": [
@@ -371,6 +389,74 @@
    "up": 25,
    "down": 8,
    "tone": 0.1491,
+   "call": null,
+   "surge": null,
+   "assets": [
+    "XLE",
+    "USO"
+   ],
+   "graded": false
+  },
+  {
+   "week": "2026-W47",
+   "cat": "crypto",
+   "read_at": "2026-11-16T09:39:26.106240+00:00",
+   "days_covered": 7,
+   "n": 657,
+   "up": 36,
+   "down": 157,
+   "tone": -0.1842,
+   "call": "DOWN",
+   "surge": null,
+   "assets": [
+    "BTC-USD",
+    "ETH-USD"
+   ],
+   "graded": false
+  },
+  {
+   "week": "2026-W47",
+   "cat": "stock",
+   "read_at": "2026-11-16T09:39:26.106240+00:00",
+   "days_covered": 7,
+   "n": 621,
+   "up": 115,
+   "down": 86,
+   "tone": 0.0467,
+   "call": null,
+   "surge": null,
+   "assets": [
+    "SPY",
+    "QQQ"
+   ],
+   "graded": false
+  },
+  {
+   "week": "2026-W47",
+   "cat": "metal",
+   "read_at": "2026-11-16T09:39:26.106240+00:00",
+   "days_covered": 7,
+   "n": 613,
+   "up": 132,
+   "down": 159,
+   "tone": -0.044,
+   "call": null,
+   "surge": null,
+   "assets": [
+    "GLD",
+    "SLV"
+   ],
+   "graded": false
+  },
+  {
+   "week": "2026-W47",
+   "cat": "energy",
+   "read_at": "2026-11-16T09:39:26.106240+00:00",
+   "days_covered": 7,
+   "n": 641,
+   "up": 145,
+   "down": 82,
+   "tone": 0.0983,
    "call": null,
    "surge": null,
    "assets": [
@@ -3476,5 +3562,5 @@
    "t": null
   }
  },
- "generated_at": "2026-11-15T09:22:59.950336+00:00"
+ "generated_at": "2026-11-16T09:39:26.106240+00:00"
 }

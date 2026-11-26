@@ -312,6 +312,32 @@
    "EQUAL-WEIGHT HOLD": 8767.49,
    "SPY HOLD": 9544.71,
    "recorded_at": "2026-11-25T11:16:12.895746+00:00"
+  },
+  "2026-11-25": {
+   "crypto:HOLD": 7947.63,
+   "crypto:TREND": 8518.51,
+   "crypto:MOMENTUM": 9738.04,
+   "crypto:VOLTARGET": 9442.75,
+   "crypto:ACCOUNT": 9226.87,
+   "stock:HOLD": 9421.92,
+   "stock:TREND": 9803.99,
+   "stock:MOMENTUM": 10017.49,
+   "stock:VOLTARGET": 9532.08,
+   "stock:ACCOUNT": 9783.84,
+   "metal:HOLD": 8163.15,
+   "metal:TREND": 10017.49,
+   "metal:MOMENTUM": 10017.49,
+   "metal:VOLTARGET": 9084.78,
+   "metal:ACCOUNT": 9706.59,
+   "energy:HOLD": 9814.06,
+   "energy:TREND": 9814.06,
+   "energy:MOMENTUM": 9860.56,
+   "energy:VOLTARGET": 9908.36,
+   "energy:ACCOUNT": 9863.59,
+   "MASTER": 10017.31,
+   "EQUAL-WEIGHT HOLD": 8835.91,
+   "SPY HOLD": 9517.09,
+   "recorded_at": "2026-11-26T10:51:41.501445+00:00"
   }
  }
 }
